@@ -6,11 +6,12 @@
   "main": "index.js",
   "scripts": {
     "debug": "webpack --env dev",
-    "build": "webpack --env prod --mode production"
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --env prod --mode production"
   },
   "devDependencies": {
-    "@types/chromecast-caf-receiver": "^5.0.9",
+    "@types/chromecast-caf-receiver": "^6.0.10",
     "bitmovin-player": "^8.56.0",
+    "cross-env": "^7.0.3",
     "html-webpack-plugin": "^4.3.0",
     "prettier": "^2.1.1",
     "ts-loader": "^8.0.3",

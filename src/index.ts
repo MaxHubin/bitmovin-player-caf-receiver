@@ -4,6 +4,7 @@ import { CAFDrmConfig, CAFMediaInfoCustomData, CAFSourceOptions } from 'bitmovin
 
 const CAST_MESSAGE_NAMESPACE = 'urn:x-cast:com.bitmovin.player.caf';
 
+
 export default class CAFReceiver {
   private readonly player: PlayerManager;
   private readonly context: CastReceiverContext;
@@ -17,7 +18,13 @@ export default class CAFReceiver {
     // cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.DEBUG);
 
     this.attachEvents();
-    this.context.start();
+
+    const options = new cast.framework.CastReceiverOptions();
+    options.useShakaForHls = true;
+    // options.shakaVersion = '4.3.5';
+    // options.shakaVariant = cast.framework.ShakaVariant.DEBUG;
+
+    this.context.start(options);
   }
 
   private attachEvents() {
@@ -74,7 +81,7 @@ export default class CAFReceiver {
     playerManager.setPlaybackConfig(playbackConfig);
   }
 
-  private readonly onCustomMessage = (message: cast.framework.system.Event) => {
+  private readonly onCustomMessage: SystemEventHandler = (message) => {
     console.log('Received custom channel message', message);
   };
 }
